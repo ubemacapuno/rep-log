@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { CATEGORIES } from "../constants/constants";
 
-export default function AddExerciseModal({ onAdd, onClose }) {
+export default function AddExerciseModal({ onAdd, onClose, initialCategory }) {
   const [name, setName] = useState("");
   const [weight, setWeight] = useState(0);
   const [intensity, setIntensity] = useState(0); // New state for Speed/Intensity
   const [time, setTime] = useState(0); // New state for Time
-  const [category, setCategory] = useState(CATEGORIES[0].name);
+  const [category, setCategory] = useState(
+    initialCategory || CATEGORIES[0].name
+  );
   const [reps, setReps] = useState(Array(5).fill(0));
 
   const handleAdd = () => {

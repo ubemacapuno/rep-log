@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import AddExerciseModal from "./AddExerciseModalForm";
 import Modal from "./Modal"; // Import the Modal component
 
@@ -32,9 +32,14 @@ export default function TabContent({ activeTab }) {
   return (
     <div className="flex flex-col justify-center items-center">
       {exercises.filter((ex) => ex.category === activeTab).length === 0 && (
-        <p className="text-center mt-4 text-neutral">No Exercises Yet</p>
+        <p className="text-center mt-4 text-neutral text-lg">
+          No Exercises Yet
+        </p>
       )}
-      <button className="btn btn-circle m-4" onClick={() => setShowModal(true)}>
+      <button
+        className="text-xl btn btn-circle bg-primary m-4 flex items-center justify-center"
+        onClick={() => setShowModal(true)}
+      >
         +
       </button>
       {exercises
@@ -52,6 +57,7 @@ export default function TabContent({ activeTab }) {
           <AddExerciseModal
             onAdd={addExercise}
             onClose={() => setShowModal(false)}
+            initialCategory={activeTab} // pass the activeTab as initialCategory
           />
         </Modal>
       )}
