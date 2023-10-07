@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
-import AddExerciseModal from "./AddExerciseModal";
+import { useState, useEffect, useRef } from "react";
+import AddExerciseModal from "./AddExerciseModalForm";
+import Modal from "./Modal"; // Import the Modal component
 
 export default function TabContent({ activeTab }) {
   const [exercises, setExercises] = useState([]);
+
+  // Use useState for modal visibility
   const [showModal, setShowModal] = useState(false);
 
   // Load exercises from localStorage when component mounts
@@ -14,9 +17,9 @@ export default function TabContent({ activeTab }) {
   }, []);
 
   const addExercise = (exercise) => {
-    const newExercises = [...exercises, exercise]; // Spread in current exercises into the array, and add on the new exercise
-    setExercises(newExercises); // "set" exercises to newExercises
-    localStorage.setItem("exercises", JSON.stringify(newExercises)); // set exercises into local storage
+    const newExercises = [...exercises, exercise];
+    setExercises(newExercises);
+    localStorage.setItem("exercises", JSON.stringify(newExercises));
   };
 
   const deleteExercise = (exerciseToDelete) => {
@@ -26,13 +29,14 @@ export default function TabContent({ activeTab }) {
     setExercises(updatedExercises);
     localStorage.setItem("exercises", JSON.stringify(updatedExercises));
   };
-
   return (
-    <div>
-      <button onClick={() => setShowModal(true)}>+</button>
+    <div className="flex flex-col justify-center items-center">
       {exercises.filter((ex) => ex.category === activeTab).length === 0 && (
-        <p>No Exercises Yet</p>
+        <p className="text-center mt-4 text-neutral">No Exercises Yet</p>
       )}
+      <button className="btn btn-circle m-4" onClick={() => setShowModal(true)}>
+        +
+      </button>
       {exercises
         .filter((ex) => ex.category === activeTab)
         .map((exercise) => (
@@ -42,11 +46,14 @@ export default function TabContent({ activeTab }) {
             <button onClick={() => deleteExercise(exercise)}>Delete</button>
           </div>
         ))}
+
       {showModal && (
-        <AddExerciseModal
-          onAdd={addExercise}
-          onClose={() => setShowModal(false)}
-        />
+        <Modal onClose={() => setShowModal(false)}>
+          <AddExerciseModal
+            onAdd={addExercise}
+            onClose={() => setShowModal(false)}
+          />
+        </Modal>
       )}
     </div>
   );
