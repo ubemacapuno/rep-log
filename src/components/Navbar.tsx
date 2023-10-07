@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
       {CATEGORIES.map((category) => (
         <button
           key={category.value}
-          className={`flex-grow ${getButtonClass(category.name)}`}
+          className={`text-lg flex-grow ${getButtonClass(category.name)} w-10`}
           onClick={() => setActiveTab(category.name)}
         >
           {category.name}
