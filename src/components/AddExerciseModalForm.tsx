@@ -11,7 +11,9 @@ export default function AddExerciseModal({ onAdd, onClose, initialCategory }) {
   );
   const [reps, setReps] = useState(Array(5).fill(0));
 
-  const handleAdd = () => {
+  const handleAdd = (e) => {
+    e.preventDefault(); // prevent form from actually submitting
+
     // Don't include reps that are entered as 0
     const filteredReps = reps.filter((rep) => rep !== 0);
 
@@ -27,99 +29,99 @@ export default function AddExerciseModal({ onAdd, onClose, initialCategory }) {
   };
 
   return (
-    <div>
-      <h2>Add an Exercise</h2>
-      <label htmlFor="name" className="label">
-        <span className="label-text">Exercise Name</span>
-      </label>
-      <input
-        placeholder="Exercise Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="input input-bordered w-full max-w-xs"
-      />
+    <div className="w-full">
+      <h2 className="text-center text-xl text-primary font-bold">
+        Add an Exercise
+      </h2>
+      <form onSubmit={handleAdd}>
+        <label htmlFor="name" className="label">
+          <span className="label-text">Exercise Name</span>
+        </label>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="input input-bordered w-full"
+          minLength={1}
+          required
+        />
+        <label htmlFor="category" className="label">
+          <span className="label-text">Category</span>
+        </label>
+        <select
+          className="select select-bordered w-full"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {CATEGORIES.map((category) => (
+            <option key={category.value} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+        {category === "Cardio" ? (
+          <>
+            <label htmlFor="intensity" className="label">
+              <span className="label-text">Speed/Intensity</span>
+            </label>
+            <input
+              type="number"
+              value={intensity}
+              onChange={(e) => setIntensity(e.target.value)}
+              className="input input-bordered w-full"
+            />
 
-      <label htmlFor="category" className="label">
-        <span className="label-text">Category</span>
-      </label>
-      <select
-        className="select select-bordered"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-      >
-        {CATEGORIES.map((category) => (
-          <option key={category.value} value={category.name}>
-            {category.name}
-          </option>
-        ))}
-      </select>
+            <label htmlFor="time" className="label">
+              <span className="label-text">Time</span>
+            </label>
+            <input
+              type="number"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              className="input input-bordered w-full"
+            />
+          </>
+        ) : (
+          <>
+            <label htmlFor="weight" className="label">
+              <span className="label-text">Time</span>
+            </label>
+            <input
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              className="input input-bordered w-full"
+            />
 
-      {category === "Cardio" ? (
-        <>
-          <label htmlFor="intensity" className="label">
-            <span className="label-text">Speed/Intensity</span>
-          </label>
-          <input
-            type="number"
-            placeholder="Speed/Intensity"
-            value={intensity}
-            onChange={(e) => setIntensity(e.target.value)}
-            className="input input-bordered w-full max-w-xs"
-          />
-
-          <label htmlFor="time" className="label">
-            <span className="label-text">Time</span>
-          </label>
-          <input
-            type="number"
-            placeholder="Time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            className="input input-bordered w-full max-w-xs"
-          />
-        </>
-      ) : (
-        <>
-          <label htmlFor="weight" className="label">
-            <span className="label-text">Time</span>
-          </label>
-          <input
-            type="number"
-            placeholder="Weight"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            className="input input-bordered w-full max-w-xs"
-          />
-
-          <label htmlFor="reps" className="label">
-            <span className="label-text">Reps</span>
-          </label>
-          <div className="flex gap-3">
-            {reps.map((rep, idx) => (
-              <input
-                key={idx}
-                type="number"
-                value={rep}
-                onChange={(e) => {
-                  const newReps = [...reps];
-                  newReps[idx] = Number(e.target.value);
-                  setReps(newReps);
-                }}
-                className="w-14 input input-bordered max-w-xs"
-              />
-            ))}
-          </div>
-        </>
-      )}
-
-      <div className="mt-8 flex justify-end gap-4">
-        <button onClick={handleAdd} className="btn btn-outline btn-success">
-          Add
-        </button>
-        <button onClick={onClose} className="btn btn-outline btn-error">
-          Cancel
-        </button>
-      </div>
+            <label htmlFor="reps" className="label">
+              <span className="label-text">Reps</span>
+            </label>
+            <div className="flex gap-1 justify-between">
+              {reps.map((rep, idx) => (
+                <input
+                  key={idx}
+                  type="number"
+                  value={rep}
+                  onChange={(e) => {
+                    const newReps = [...reps];
+                    newReps[idx] = Number(e.target.value);
+                    setReps(newReps);
+                  }}
+                  className="input input-bordered w-14" // adjust width based on screen size
+                  // DaisyUI classes + Tailwind width class
+                />
+              ))}
+            </div>
+          </>
+        )}
+        <div className="mt-8 flex justify-end gap-4">
+          <button type="submit" className="btn btn-outline btn-success">
+            Add
+          </button>
+          <button onClick={onClose} className="btn btn-outline btn-error">
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

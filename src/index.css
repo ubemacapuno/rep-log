@@ -10,3 +10,13 @@
   background-color: hsl(var(--pf));
   /* some slightly different shade for hover/focus, for example violet-600 */
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

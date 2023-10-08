@@ -16,7 +16,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
 
       {/* Actual modal */}
       <div className="modal modal-open">
-        <div className="modal-box">
+        <div className="modal-box max-w-md">
           <button
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
             onClick={onClose}
