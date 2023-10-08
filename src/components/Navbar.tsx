@@ -15,7 +15,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   }
 
   return (
-    <div className="navbar flex justify-between bg-neutral text-neutral-content space-x-4">
+    <div className="navbar flex justify-between border-b-8 p-0 border-neutral	text-neutral-content space-x-4">
       {CATEGORIES.map((category) => (
         <button
           key={category.value}
