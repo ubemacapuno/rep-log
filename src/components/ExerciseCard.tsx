@@ -6,6 +6,7 @@ const ExerciseCard = ({
   onDelete,
   intensity,
   time,
+  onEditExercise,
 }) => {
   return category === "Cardio" ? (
     <>
@@ -32,6 +33,10 @@ const ExerciseCard = ({
             Weight: {weight}kg - Category: {category} - Reps: {reps.join(", ")}
           </p>
           <div className="card-actions justify-end">
+            <button className="btn btn-outline" onClick={onEditExercise}>
+              Edit
+            </button>
+
             <button className="btn" onClick={onDelete}>
               Delete
             </button>
