@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { CATEGORIES } from "../constants/constants";
 
-export default function AddExerciseModal({ onAdd, onClose, initialCategory }) {
-  const [name, setName] = useState("");
-  const [weight, setWeight] = useState(0);
-  const [intensity, setIntensity] = useState(0); // New state for Speed/Intensity
-  const [time, setTime] = useState(0); // New state for Time
+export default function AddExerciseModal({
+  onAdd,
+  onEdit,
+  onClose,
+  initialCategory,
+  exercise,
+}) {
+  const [name, setName] = useState(exercise?.name || "");
+  const [weight, setWeight] = useState(exercise?.weight || 0);
+  const [intensity, setIntensity] = useState(exercise?.intensity || 0); // New state for Speed/Intensity
+  const [time, setTime] = useState(exercise?.time || 0); // New state for Time
   const [category, setCategory] = useState(
-    initialCategory || CATEGORIES[0].name
+    exercise?.category || initialCategory || CATEGORIES[0].name
   );
-  const [reps, setReps] = useState(Array(5).fill(0));
+  const [reps, setReps] = useState(exercise?.reps || Array(5).fill(0));
 
   const handleAdd = (e) => {
     e.preventDefault(); // prevent form from actually submitting
@@ -17,21 +23,26 @@ export default function AddExerciseModal({ onAdd, onClose, initialCategory }) {
     // Don't include reps that are entered as 0
     const filteredReps = reps.filter((rep) => rep !== 0);
 
-    onAdd({
-      name,
-      weight: Number(weight),
-      category,
-      reps: filteredReps,
-      intensity: Number(intensity),
-      time: Number(time),
-    });
+    // If exercise exists, use onEdit, otherwise use onAdd
+    if (exercise) {
+      onEdit(exercise.id, { name, weight, category, reps, intensity, time });
+    } else {
+      onAdd({
+        name,
+        weight: Number(weight),
+        category,
+        reps: filteredReps,
+        intensity: Number(intensity),
+        time: Number(time),
+      });
+    }
     onClose();
   };
 
   return (
     <div className="w-full">
       <h2 className="text-center text-xl text-primary font-bold">
-        Add an Exercise
+        {exercise ? "Edit Exercise" : "Add an Exercise"}
       </h2>
       <form onSubmit={handleAdd}>
         <label htmlFor="category" className="label">
@@ -114,10 +125,10 @@ export default function AddExerciseModal({ onAdd, onClose, initialCategory }) {
           </>
         )}
         <div className="mt-8 flex justify-end gap-4">
-          <button type="submit" className="btn btn-outline btn-success">
-            Add
+          <button type="submit" className="btn btn-success">
+            Submit
           </button>
-          <button onClick={onClose} className="btn btn-outline btn-error">
+          <button onClick={onClose} className="btn btn-error">
             Cancel
           </button>
         </div>
