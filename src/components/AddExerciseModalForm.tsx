@@ -34,16 +34,6 @@ export default function AddExerciseModal({ onAdd, onClose, initialCategory }) {
         Add an Exercise
       </h2>
       <form onSubmit={handleAdd}>
-        <label htmlFor="name" className="label">
-          <span className="label-text">Exercise Name</span>
-        </label>
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="input input-bordered w-full"
-          minLength={1}
-          required
-        />
         <label htmlFor="category" className="label">
           <span className="label-text">Category</span>
         </label>
@@ -58,10 +48,20 @@ export default function AddExerciseModal({ onAdd, onClose, initialCategory }) {
             </option>
           ))}
         </select>
+        <label htmlFor="name" className="label">
+          <span className="label-text">Exercise Name</span>
+        </label>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="input input-bordered w-full"
+          minLength={1}
+          required
+        />
         {category === "Cardio" ? (
           <>
             <label htmlFor="intensity" className="label">
-              <span className="label-text">Speed/Intensity</span>
+              <span className="label-text">Speed (mph) or Intensity</span>
             </label>
             <input
               type="number"
@@ -71,7 +71,7 @@ export default function AddExerciseModal({ onAdd, onClose, initialCategory }) {
             />
 
             <label htmlFor="time" className="label">
-              <span className="label-text">Time</span>
+              <span className="label-text">Time (sec)</span>
             </label>
             <input
               type="number"
@@ -83,7 +83,7 @@ export default function AddExerciseModal({ onAdd, onClose, initialCategory }) {
         ) : (
           <>
             <label htmlFor="weight" className="label">
-              <span className="label-text">Time</span>
+              <span className="label-text">Weight (lbs)</span>
             </label>
             <input
               type="number"

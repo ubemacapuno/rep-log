@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AddExerciseModal from "./AddExerciseModalForm";
 import Modal from "./Modal"; // Import the Modal component
+import ExerciseCard from "./ExerciseCard";
 
 export default function TabContent({ activeTab }) {
   const [exercises, setExercises] = useState([]);
@@ -44,12 +45,19 @@ export default function TabContent({ activeTab }) {
       </button>
       {exercises
         .filter((ex) => ex.category === activeTab)
-        .map((exercise) => (
-          <div key={exercise.name}>
-            {exercise.name} - {exercise.weight}kg - {exercise.category} -{" "}
-            {exercise.reps.join(", ")}
-            <button onClick={() => deleteExercise(exercise)}>Delete</button>
-          </div>
+        .map(({ name, weight, category, reps, intensity, time }) => (
+          <ExerciseCard
+            key={name}
+            name={name}
+            weight={weight}
+            category={category}
+            reps={reps}
+            intensity={intensity}
+            time={time}
+            onDelete={() =>
+              deleteExercise({ name, weight, category, reps, intensity, time })
+            }
+          />
         ))}
 
       {showModal && (
