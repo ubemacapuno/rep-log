@@ -125,10 +125,10 @@ export default function AddExerciseModal({
           </>
         )}
         <div className="mt-8 flex justify-end gap-4">
-          <button type="submit" className="btn btn-outline btn-success">
-            Add
+          <button type="submit" className="btn btn-success">
+            Submit
           </button>
-          <button onClick={onClose} className="btn btn-outline btn-error">
+          <button onClick={onClose} className="btn btn-error">
             Cancel
           </button>
         </div>
