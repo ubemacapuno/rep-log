@@ -23,7 +23,7 @@ const ExerciseCard = ({
       : `${weight} lbs`;
 
   return (
-    <div className="card w-11/12 mx-4 bg-neutral text-primary-content">
+    <div className="card w-11/12 m-4 bg-neutral text-primary-content">
       <div className="flex flex-col gap-4 card-body">
         <h2 className="card-title text-3xl text-primary">{name}</h2>
         <p>{exerciseDetails}</p>
