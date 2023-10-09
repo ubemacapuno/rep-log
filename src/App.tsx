@@ -1,18 +1,21 @@
 import { useState } from "react";
 import TabContent from "./components/TabContent";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-// https://liftitapp.netlify.app/ for reference
-
+// https://liftitapp.netlify.app/ for inspo
 function App() {
   const [activeTab, setActiveTab] = useState("Push");
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <h1 className="m-8 text-center text-3xl font-bold">RepLog</h1>
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <TabContent activeTab={activeTab} />
-    </>
+      <div className="flex-grow">
+        <TabContent activeTab={activeTab} />
+      </div>
+      <Footer />
+    </div>
   );
 }
 

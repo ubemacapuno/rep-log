@@ -3,12 +3,17 @@ import AddExerciseModal from "./AddExerciseModalForm";
 import Modal from "./Modal"; // Import the Modal component
 import ExerciseCard from "./ExerciseCard";
 import { v4 as uuidv4 } from "uuid";
+import { Exercise } from "../types/ExerciseTypes";
 
-export default function TabContent({ activeTab }) {
-  const [exercises, setExercises] = useState([]);
+type TabContentProps = {
+  activeTab: string;
+};
+
+export default function TabContent({ activeTab }: TabContentProps) {
+  const [exercises, setExercises] = useState<Exercise[]>([]);
 
   //maintain a state for the exercise being edited:
-  const [editingExercise, setEditingExercise] = useState(null);
+  const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
 
   // Use useState for modal visibility
   const [showModal, setShowModal] = useState(false);
@@ -21,14 +26,14 @@ export default function TabContent({ activeTab }) {
     setExercises(storedExercises);
   }, []);
 
-  const addExercise = (exercise) => {
+  const addExercise = (exercise: Omit<Exercise, "id">) => {
     const newExercise = { ...exercise, id: uuidv4() };
     const newExercises = [...exercises, newExercise];
     setExercises(newExercises);
     localStorage.setItem("exercises", JSON.stringify(newExercises));
   };
 
-  const editExercise = (id, updatedExercise) => {
+  const editExercise = (id: string, updatedExercise: Omit<Exercise, "id">) => {
     const updatedExercises = exercises.map((exercise) =>
       exercise.id === id ? { ...updatedExercise, id } : exercise
     );
@@ -36,13 +41,13 @@ export default function TabContent({ activeTab }) {
     localStorage.setItem("exercises", JSON.stringify(updatedExercises));
   };
 
-  const deleteExercise = (id) => {
+  const deleteExercise = (id: string) => {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
     localStorage.setItem("exercises", JSON.stringify(updatedExercises));
   };
 
-  const onEditExercise = (exercise) => {
+  const onEditExercise = (exercise: Exercise) => {
     setEditingExercise(exercise); // set the exercise we're editing
     setShowModal(true); // show the modal
   };
@@ -65,7 +70,7 @@ export default function TabContent({ activeTab }) {
         .map(({ id, name, weight, category, reps, intensity, time }) => (
           <ExerciseCard
             key={id}
-            id={id} // pass the ID to ExerciseCard
+            id={id}
             name={name}
             weight={weight}
             category={category}

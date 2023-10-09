@@ -2,6 +2,7 @@ import React from "react";
 
 interface ModalProps {
   onClose: () => void;
+  children?: React.ReactNode; // descructure children from ModalProps
 }
 
 // Unlike the daisyUI example, this component does not use <dialog>
@@ -14,7 +15,6 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
         onClick={onClose}
       />
 
-      {/* Actual modal */}
       <div className="modal modal-open">
         <div className="modal-box max-w-md">
           <button

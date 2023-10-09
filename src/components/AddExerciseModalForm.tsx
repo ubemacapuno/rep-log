@@ -1,5 +1,31 @@
 import { useState } from "react";
 import { CATEGORIES } from "../constants/constants";
+import { Exercise } from "../types/ExerciseTypes";
+
+type AddExerciseModalProps = {
+  onAdd: (exercise: {
+    name: string;
+    weight: number;
+    category: string;
+    reps: number[];
+    intensity: number;
+    time: number;
+  }) => void;
+  onEdit: (
+    id: string,
+    updatedExercise: {
+      name: string;
+      weight: number;
+      category: string;
+      reps: number[];
+      intensity: number;
+      time: number;
+    }
+  ) => void;
+  onClose: () => void;
+  initialCategory?: string;
+  exercise?: Exercise | null;
+};
 
 export default function AddExerciseModal({
   onAdd,
@@ -7,23 +33,23 @@ export default function AddExerciseModal({
   onClose,
   initialCategory,
   exercise,
-}) {
+}: AddExerciseModalProps) {
   const [name, setName] = useState(exercise?.name || "");
   const [weight, setWeight] = useState(exercise?.weight || 0);
-  const [intensity, setIntensity] = useState(exercise?.intensity || 0); // New state for Speed/Intensity
-  const [time, setTime] = useState(exercise?.time || 0); // New state for Time
+  const [intensity, setIntensity] = useState(exercise?.intensity || 0);
+  const [time, setTime] = useState(exercise?.time || 0);
   const [category, setCategory] = useState(
     exercise?.category || initialCategory || CATEGORIES[0].name
   );
   const [reps, setReps] = useState(exercise?.reps || Array(5).fill(0));
 
-  const handleAdd = (e) => {
-    e.preventDefault(); // prevent form from actually submitting
+  const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // prevent form from actually submitting (default action)
 
     // Don't include reps that are entered as 0
     const filteredReps = reps.filter((rep) => rep !== 0);
 
-    // If exercise exists, use onEdit, otherwise use onAdd
+    // If exercise exists, call onEdit(), otherwise call onAdd()
     if (exercise) {
       onEdit(exercise.id, { name, weight, category, reps, intensity, time });
     } else {
@@ -77,7 +103,9 @@ export default function AddExerciseModal({
             <input
               type="number"
               value={intensity}
-              onChange={(e) => setIntensity(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setIntensity(Number(e.target.value))
+              }
               className="input input-bordered w-full"
             />
 
@@ -87,7 +115,9 @@ export default function AddExerciseModal({
             <input
               type="number"
               value={time}
-              onChange={(e) => setTime(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setTime(Number(e.target.value))
+              }
               className="input input-bordered w-full"
             />
           </>
@@ -99,10 +129,11 @@ export default function AddExerciseModal({
             <input
               type="number"
               value={weight}
-              onChange={(e) => setWeight(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setWeight(Number(e.target.value))
+              }
               className="input input-bordered w-full"
             />
-
             <label htmlFor="reps" className="label">
               <span className="label-text">Reps</span>
             </label>
@@ -117,8 +148,7 @@ export default function AddExerciseModal({
                     newReps[idx] = Number(e.target.value);
                     setReps(newReps);
                   }}
-                  className="input input-bordered w-14" // adjust width based on screen size
-                  // DaisyUI classes + Tailwind width class
+                  className="input input-bordered w-14"
                 />
               ))}
             </div>
