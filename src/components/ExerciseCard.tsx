@@ -1,4 +1,16 @@
-const ExerciseCard = ({
+type ExerciseCardProps = {
+  id: string;
+  name: string;
+  weight: number;
+  category: string;
+  reps: number[];
+  onDelete: () => void;
+  intensity: number;
+  time: number;
+  onEditExercise: () => void;
+};
+
+const ExerciseCard: React.FC<ExerciseCardProps> = ({
   name,
   weight,
   category,
