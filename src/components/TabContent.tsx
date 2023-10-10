@@ -82,7 +82,7 @@ export default function TabContent({ activeTab }: TabContentProps) {
         className="text-xl btn btn-circle bg-primary m-4 flex items-center justify-center"
         onClick={() => setShowModal(true)}
       >
-        +
+        <span className="material-symbols-outlined">add</span>
       </button>
       {exercises
         .filter((ex) => ex.category === activeTab)

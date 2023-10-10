@@ -56,10 +56,10 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
         )}
         <div className="btn-group justify-end mt-4">
           <button className="btn btn-accent" onClick={onEditExercise}>
-            Edit
+            <span className="material-symbols-outlined">edit</span>
           </button>
           <button className="btn btn-error" onClick={handleDelete}>
-            Delete
+            <span className="material-symbols-outlined text-white">delete</span>
           </button>
         </div>
       </div>
