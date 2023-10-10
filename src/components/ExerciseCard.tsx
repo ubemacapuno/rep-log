@@ -1,3 +1,5 @@
+import RepInput from "./RepInput";
+
 type ExerciseCardProps = {
   id: string;
   name: string;
@@ -8,6 +10,7 @@ type ExerciseCardProps = {
   intensity: number;
   time: number;
   onEditExercise: () => void;
+  onRepChange: (index: number, newRep: number) => void;
 };
 
 const ExerciseCard: React.FC<ExerciseCardProps> = ({
@@ -18,6 +21,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
   onDelete,
   intensity,
   time,
+  onRepChange,
   onEditExercise,
 }) => {
   const handleDelete = () => {
@@ -41,17 +45,13 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
         <p>{exerciseDetails}</p>
         {category !== "Cardio" && (
           <div className="flex gap-2">
-            {reps.map(
-              (rep, idx) =>
-                rep > 0 && (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-center bg-secondary btn-circle"
-                  >
-                    {rep}
-                  </div>
-                )
-            )}
+            {reps.map((rep, idx) => (
+              <RepInput
+                key={idx}
+                initialValue={rep}
+                onChange={(newVal) => onRepChange(idx, newVal)}
+              />
+            ))}
           </div>
         )}
         <div className="btn-group justify-end mt-4">

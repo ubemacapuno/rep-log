@@ -52,6 +52,25 @@ export default function TabContent({ activeTab }: TabContentProps) {
     setShowModal(true); // show the modal
   };
 
+  const handleRepChange = (
+    exerciseId: string,
+    repIndex: number,
+    newRep: number
+  ) => {
+    // Find the exercise and update its rep
+    const updatedExercises = exercises.map((exercise) => {
+      if (exercise.id === exerciseId) {
+        const updatedReps = [...exercise.reps];
+        updatedReps[repIndex] = newRep;
+        return { ...exercise, reps: updatedReps };
+      }
+      return exercise;
+    });
+
+    setExercises(updatedExercises);
+    localStorage.setItem("exercises", JSON.stringify(updatedExercises));
+  };
+
   return (
     <div className="flex flex-col justify-center items-center">
       {exercises.filter((ex) => ex.category === activeTab).length === 0 && (
@@ -89,6 +108,7 @@ export default function TabContent({ activeTab }: TabContentProps) {
                 time,
               })
             }
+            onRepChange={(idx, newVal) => handleRepChange(id, idx, newVal)}
           />
         ))}
 
