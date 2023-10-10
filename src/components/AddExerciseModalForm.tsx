@@ -46,9 +46,6 @@ export default function AddExerciseModal({
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // prevent form from actually submitting (default action)
 
-    // Don't include reps that are entered as 0
-    const filteredReps = reps.filter((rep) => rep !== 0);
-
     // If exercise exists, call onEdit(), otherwise call onAdd()
     if (exercise) {
       onEdit(exercise.id, { name, weight, category, reps, intensity, time });
@@ -57,7 +54,7 @@ export default function AddExerciseModal({
         name,
         weight: Number(weight),
         category,
-        reps: filteredReps,
+        reps,
         intensity: Number(intensity),
         time: Number(time),
       });
