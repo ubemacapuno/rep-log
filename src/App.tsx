@@ -15,8 +15,10 @@ function App() {
         </span>
         RepLog
       </h1>
+      {/* setActiveTab function fires when user clicks on a Navbar tab */}
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="flex-grow">
+        {/* setActiveTab fires on addExercise() and editExercise() */}
         <TabContent activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       <Footer />

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CATEGORIES } from "../constants/constants";
 import { Exercise } from "../types/ExerciseTypes";
 
-type AddExerciseModalProps = {
+type ExerciseFormProps = {
   onAdd: (exercise: {
     name: string;
     weight: number;
@@ -27,13 +27,13 @@ type AddExerciseModalProps = {
   exercise?: Exercise | null;
 };
 
-export default function AddExerciseModal({
+export default function ExerciseForm({
   onAdd,
   onEdit,
   onClose,
   initialCategory,
   exercise,
-}: AddExerciseModalProps) {
+}: ExerciseFormProps) {
   const [name, setName] = useState(exercise?.name || "");
   const [weight, setWeight] = useState(exercise?.weight || 0);
   const [intensity, setIntensity] = useState(exercise?.intensity || 0);

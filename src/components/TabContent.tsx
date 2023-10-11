@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import AddExerciseModal from "./AddExerciseModalForm";
+import ExerciseForm from "./ExerciseForm";
 import Modal from "./Modal"; // Import the Modal component
 import ExerciseCard from "./ExerciseCard";
 import { v4 as uuidv4 } from "uuid";
@@ -139,7 +139,7 @@ export default function TabContent({
           }}
         >
           {" "}
-          <AddExerciseModal
+          <ExerciseForm
             onAdd={addExercise}
             onEdit={editExercise}
             onClose={() => {
