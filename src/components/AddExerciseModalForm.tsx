@@ -43,6 +43,16 @@ export default function AddExerciseModal({
   );
   const [reps, setReps] = useState(exercise?.reps || Array(5).fill(0));
 
+  // Function to reset the inputs in the modal:
+  const resetForm = () => {
+    setName("");
+    setWeight(0);
+    setIntensity(0);
+    setTime(0);
+    setCategory(initialCategory || CATEGORIES[0].name);
+    setReps(Array(5).fill(0));
+  };
+
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // prevent form from actually submitting (default action)
 
@@ -59,6 +69,7 @@ export default function AddExerciseModal({
         time: Number(time),
       });
     }
+    resetForm(); // Reset form after adding an exercise
     onClose();
   };
 
@@ -155,7 +166,7 @@ export default function AddExerciseModal({
           <button type="submit" className="btn btn-success">
             Submit
           </button>
-          <button onClick={onClose} className="btn btn-error">
+          <button type="button" onClick={onClose} className="btn btn-error">
             Cancel
           </button>
         </div>

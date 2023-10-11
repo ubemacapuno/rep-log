@@ -80,7 +80,10 @@ export default function TabContent({ activeTab }: TabContentProps) {
       )}
       <button
         className="text-xl btn btn-circle bg-primary m-4 flex items-center justify-center"
-        onClick={() => setShowModal(true)}
+        onClick={() => {
+          setEditingExercise(null); // Ensure editingExercise is null
+          setShowModal(true);
+        }}
       >
         <span className="material-symbols-outlined">add</span>
       </button>
@@ -113,7 +116,13 @@ export default function TabContent({ activeTab }: TabContentProps) {
         ))}
 
       {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
+        <Modal
+          onClose={() => {
+            setShowModal(false);
+            setEditingExercise(null);
+          }}
+        >
+          {" "}
           <AddExerciseModal
             onAdd={addExercise}
             onEdit={editExercise}
