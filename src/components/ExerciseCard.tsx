@@ -9,7 +9,7 @@ type ExerciseCardProps = {
   onDelete: () => void;
   intensity: number;
   time: number;
-  onEditExercise: () => void;
+  initiateEditForExercise: () => void;
   onRepChange: (index: number, newRep: number) => void;
 };
 
@@ -22,7 +22,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
   intensity,
   time,
   onRepChange,
-  onEditExercise,
+  initiateEditForExercise,
 }) => {
   const handleDelete = () => {
     const confirmation = window.confirm(
@@ -55,7 +55,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           </div>
         )}
         <div className="btn-group justify-end mt-4">
-          <button className="btn btn-accent" onClick={onEditExercise}>
+          <button className="btn btn-accent" onClick={initiateEditForExercise}>
             <span className="material-symbols-outlined">edit</span>
           </button>
           <button className="btn btn-error" onClick={handleDelete}>

@@ -17,7 +17,7 @@ function App() {
       </h1>
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="flex-grow">
-        <TabContent activeTab={activeTab} />
+        <TabContent activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       <Footer />
     </div>

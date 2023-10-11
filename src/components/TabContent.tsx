@@ -7,9 +7,13 @@ import { Exercise } from "../types/ExerciseTypes";
 
 type TabContentProps = {
   activeTab: string;
+  setActiveTab: (tab: string) => void;
 };
 
-export default function TabContent({ activeTab }: TabContentProps) {
+export default function TabContent({
+  activeTab,
+  setActiveTab,
+}: TabContentProps) {
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
   //maintain a state for the exercise being edited:
@@ -26,30 +30,42 @@ export default function TabContent({ activeTab }: TabContentProps) {
     setExercises(storedExercises);
   }, []);
 
+  // addExercise: add an exercise to the array
   const addExercise = (exercise: Omit<Exercise, "id">) => {
-    const newExercise = { ...exercise, id: uuidv4() };
-    const newExercises = [...exercises, newExercise];
-    setExercises(newExercises);
-    localStorage.setItem("exercises", JSON.stringify(newExercises));
+    const newExercise = { ...exercise, id: uuidv4() }; // assign a unique id to the new exercise
+    const newExercises = [...exercises, newExercise]; // append newExercise to the list of exercises
+    setExercises(newExercises); // pass newExercises in the useState setExercises function
+    localStorage.setItem("exercises", JSON.stringify(newExercises)); // Set in localStorage as a string
+    setActiveTab(exercise.category); // Set the active tab to the new exercise's category
   };
 
+  /**
+   * initiateEditForExercise
+   * Set up the UI for editing an exercise:
+   * 1. Set which exercise is currently being edited (so that it can be passed as a prop to the modal form)
+   * 2. Trigger modal to open
+   */
+  const initiateEditForExercise = (exercise: Exercise) => {
+    setEditingExercise(exercise); // set the exercise we're editing
+    setShowModal(true); // show the modal
+  };
+
+  //  editExercise: update the exercises array with an edited exercise
   const editExercise = (id: string, updatedExercise: Omit<Exercise, "id">) => {
     const updatedExercises = exercises.map((exercise) =>
       exercise.id === id ? { ...updatedExercise, id } : exercise
     );
     setExercises(updatedExercises);
     localStorage.setItem("exercises", JSON.stringify(updatedExercises));
+    // Set the active tab to the updated exercise's category:
+    setActiveTab(updatedExercise.category);
   };
 
+  // R
   const deleteExercise = (id: string) => {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
     localStorage.setItem("exercises", JSON.stringify(updatedExercises));
-  };
-
-  const onEditExercise = (exercise: Exercise) => {
-    setEditingExercise(exercise); // set the exercise we're editing
-    setShowModal(true); // show the modal
   };
 
   const handleRepChange = (
@@ -100,8 +116,8 @@ export default function TabContent({ activeTab }: TabContentProps) {
             intensity={intensity}
             time={time}
             onDelete={() => deleteExercise(id)}
-            onEditExercise={() =>
-              onEditExercise({
+            initiateEditForExercise={() =>
+              initiateEditForExercise({
                 id,
                 name,
                 weight,
