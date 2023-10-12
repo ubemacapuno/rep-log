@@ -3,16 +3,12 @@ import ExerciseForm from "./ExerciseForm";
 import Modal from "./Modal"; // Import the Modal component
 import ExerciseCard from "./ExerciseCard";
 import { v4 as uuidv4 } from "uuid";
-import { Exercise } from "../types/ExerciseTypes";
-
-type TabContentProps = {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-};
+import { Exercise, TabContentProps } from "../types/ExerciseTypes";
 
 export default function TabContent({
   activeTab,
   setActiveTab,
+  addToast,
 }: TabContentProps) {
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
@@ -37,6 +33,9 @@ export default function TabContent({
     setExercises(newExercises); // pass newExercises in the useState setExercises function
     localStorage.setItem("exercises", JSON.stringify(newExercises)); // Set in localStorage as a string
     setActiveTab(exercise.category); // Set the active tab to the new exercise's category
+
+    // Add a toast message
+    addToast({ message: "Exercise added!", type: "success" });
   };
 
   /**
@@ -59,13 +58,16 @@ export default function TabContent({
     localStorage.setItem("exercises", JSON.stringify(updatedExercises));
     // Set the active tab to the updated exercise's category:
     setActiveTab(updatedExercise.category);
+
+    // Add a toast message
+    addToast({ message: "Exercise updated!", type: "success" });
   };
 
-  // R
   const deleteExercise = (id: string) => {
     const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
     setExercises(updatedExercises);
     localStorage.setItem("exercises", JSON.stringify(updatedExercises));
+    addToast({ message: "Exercise deleted!", type: "success" });
   };
 
   const handleRepChange = (

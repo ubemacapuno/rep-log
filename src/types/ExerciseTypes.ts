@@ -9,3 +9,14 @@ export type Exercise = {
   intensity: number;
   time: number;
 };
+
+export type TabContentProps = {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+  addToast: (args: ToastArgs) => void;
+};
+
+export type ToastArgs = {
+  message: string;
+  type: "info" | "success" | "warning" | "error";
+};

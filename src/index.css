@@ -29,3 +29,17 @@ input[type="number"] {
     transform: rotate(-720deg); /* 2 full rotations */
   }
 }
+
+.toast {
+  display: block;
+  width: auto;
+  position: relative;
+}
+
+.toast + .toast {
+  margin-top: 0.5rem;
+}
+
+.toast .alert-info {
+  background-color: blue !important;
+}
