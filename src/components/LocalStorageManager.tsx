@@ -1,5 +1,3 @@
-import React from "react";
-
 function LocalStorageManager({ onDataChanged }: { onDataChanged: () => void }) {
   const handleExport = () => {
     const exercisesData = localStorage.getItem("exercises");
@@ -18,8 +16,14 @@ function LocalStorageManager({ onDataChanged }: { onDataChanged: () => void }) {
   };
 
   const handleClear = () => {
-    localStorage.clear();
-    alert("Local storage cleared!");
+    const confirmation = window.confirm(
+      "Are you sure you want to reset ALL exercise data? This cannot be undone."
+    );
+    if (confirmation) {
+      localStorage.clear();
+      onDataChanged();
+      alert("Local storage cleared!");
+    }
   };
 
   const handleLoad = (e: React.ChangeEvent<HTMLInputElement>) => {

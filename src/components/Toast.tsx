@@ -1,6 +1,3 @@
-// Toast.tsx
-import React from "react";
-
 interface ToastProps {
   message: string;
   type: "info" | "success" | "warning" | "error";

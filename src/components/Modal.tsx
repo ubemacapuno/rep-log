@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ModalProps {
   onClose: () => void;
   resetForm?: () => void;
