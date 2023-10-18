@@ -9,7 +9,15 @@ export default function TabContent({
   activeTab,
   setActiveTab,
   addToast,
+  dataChanged,
 }: TabContentProps) {
+  useEffect(() => {
+    // Fetch or update the data from localStorage here
+    const exercisesData = JSON.parse(localStorage.getItem("exercises") || "[]");
+
+    setExercises(exercisesData); // Set the state with the new exercisesData
+  }, [dataChanged]);
+
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
   //maintain a state for the exercise being edited:

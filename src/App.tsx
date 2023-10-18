@@ -21,6 +21,7 @@ function App() {
   >([]);
 
   const [showLocalStorageModal, setShowLocalStorageModal] = useState(false);
+  const [dataChanged, setDataChanged] = useState(false);
 
   const addToast = ({ message, type }: ToastArgs) => {
     const id = uuidv4();
@@ -53,6 +54,7 @@ function App() {
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             addToast={addToast}
+            dataChanged={dataChanged}
           />
         </div>
         <Footer />
@@ -66,7 +68,9 @@ function App() {
       {/* Modal for localStorage options */}
       {showLocalStorageModal && (
         <Modal onClose={() => setShowLocalStorageModal(false)}>
-          <LocalStorageManager />
+          <LocalStorageManager
+            onDataChanged={() => setDataChanged((prev) => !prev)}
+          />
         </Modal>
       )}
     </>
