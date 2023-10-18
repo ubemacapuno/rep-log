@@ -14,6 +14,7 @@ export type TabContentProps = {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   addToast: (args: ToastArgs) => void;
+  dataChanged: boolean;
 };
 
 export type ToastArgs = {
