@@ -38,7 +38,7 @@ function App() {
     <>
       <div className="flex flex-col min-h-screen">
         <h1
-          className="m-8 text-center text-5xl font-bold text-primary"
+          className="m-8 text-center text-5xl font-bold text-primary cursor-pointer"
           onClick={() => setShowLocalStorageModal(true)}
         >
           {" "}

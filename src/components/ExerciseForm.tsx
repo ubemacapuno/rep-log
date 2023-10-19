@@ -118,7 +118,7 @@ export default function ExerciseForm({
             />
 
             <label htmlFor="time" className="label">
-              <span className="label-text">Time (sec)</span>
+              <span className="label-text">Time (minutes)</span>
             </label>
             <input
               type="number"

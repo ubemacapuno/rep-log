@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 function LocalStorageManager({ onDataChanged }: { onDataChanged: () => void }) {
   const handleExport = () => {
     const exercisesData = localStorage.getItem("exercises");
@@ -11,7 +13,7 @@ function LocalStorageManager({ onDataChanged }: { onDataChanged: () => void }) {
       downloadAnchorNode.click();
       downloadAnchorNode.remove();
     } else {
-      alert("No exercises data found in local storage!");
+      alert("No data was found to export! Add some exercises first.");
     }
   };
 
@@ -53,25 +55,68 @@ function LocalStorageManager({ onDataChanged }: { onDataChanged: () => void }) {
     reader.readAsText(file);
   };
 
+  const fileInputRef = useRef<HTMLInputElement>(null); // (1) useRef to reference the file input
+
+  const triggerFileInput = () => {
+    const confirmation = window.confirm(
+      "Imported data will overwrite all existing data. Do you wish to proceed? This cannot be undone."
+    );
+    if (confirmation) {
+      // The actual file input is hidden. This function fires onClick
+      fileInputRef.current?.click();
+    }
+  };
+
   return (
-    <>
-      <label className="label">
-        <span className="label-text">Import Exercise Data</span>
-      </label>
+    <div className="flex flex-col gap-4 text-center">
+      <h3 className=" text-3xl font-bold text-primary">
+        <span className="material-symbols-outlined text-2xl text-accent">
+          exercise
+        </span>
+        RepLog
+      </h3>
+
+      <a
+        rel="noreferrer noopener"
+        className="text-xs no-underline link link-accent"
+        href="https://liftitapp.netlify.app/"
+        target="_blank"
+        aria-label="GitHub Repository"
+      >
+        Inspired by LIFT.IT
+      </a>
+      <span className="">
+        Created by{" "}
+        <a
+          rel="noreferrer noopener"
+          className=" no-underline link link-secondary"
+          href="https://coreydamocles.netlify.app/"
+          target="_blank"
+        >
+          Corey Damocles{" "}
+        </a>
+        <span className="text-primary">© {new Date().getFullYear()}</span>
+      </span>
       <input
+        ref={fileInputRef} // Connect the input to the useRef
         type="file"
         onChange={handleLoad}
-        className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+        style={{ display: "none" }} // This is hidden, but triggerFileInput() will run onClick
       />
-      <div className="btn-group mt-4">
-        <button onClick={handleClear} className="btn btn-error">
-          Reset
+
+      <button onClick={handleClear} className="btn btn-error">
+        Reset All Data
+      </button>
+      <div className="flex justify-between">
+        <button onClick={triggerFileInput} className="btn btn-success">
+          Import Data
         </button>
-        <button onClick={handleExport} className="btn btn-success">
-          Export
+
+        <button onClick={handleExport} className="btn btn-primary">
+          Export Data
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
