@@ -1,27 +1,60 @@
-# React + TypeScript + Vite
+# RepLog: Your Comprehensive Workout Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## <a href="https://rep-log.vercel.app/">Demo</a>
 
-Currently, two official plugins are available:
+<p>RepLog is a simple workout tracking application designed to cater to fitness enthusiasts of all levels. Whether you're just starting your fitness journey or are an experienced athlete, RepLog offers a user-friendly and efficient way to log and track your workout progress.</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<p>The app features a range of workout categories including Push, Pull, Lift, Cardio, and Abs, catering to a wide array of fitness routines. One of the standout features of RepLog is its intuitive button counter, allowing users to easily track their repetitions with a simple click. This functionality not only makes it straightforward to log workouts as you go but also helps in maintaining accurate and consistent records of your training sessions. The app's streamlined design ensures that tracking your fitness progress is hassle-free, making it an ideal tool for anyone looking to enhance their workout experience.</p>
 
-## Expanding the ESLint configuration
+<p>Note: This application is a standalone project and does not require any external APIs for its core functionalities. All data is stored and managed locally, ensuring user privacy and data security.</p>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+ <tr>
+    <td width="30%"  style="align:center;" valign="top">
+            <img src="https://github.com/ubemacapuno/images-for-github-readme/blob/main/rep-log.vercel.app_(iPhone%206_7_8).png?raw=true" width="30%"  alt="RepLog Screenshot."/>
+    </td>
+  </tr>
 
-- Configure the top-level `parserOptions` property like this:
+## How It's Made:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+<p>Powered with React, TypeScript, Vite, and hosted on <a href="https://rep-log.vercel.app/">Vercel</a>.</p>
+<p>Styled with <a href="https://tailwindcss.com/">Tailwind CSS</a> and <a href="https://daisyui.com/">DaisyUI</a></p>.
+
+## Install the dependencies either using NPM/Yarn/PNPM:
+
+Using NPM:
+
+```bash
+# Install dependencies
+$ npm install
+
+# Start development server
+$ npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Using Yarn:
+
+```bash
+# Install dependencies
+$ yarn
+
+# Start development server
+$ yarn dev
+```
+
+Using PNPM:
+
+```bash
+# Install dependencies
+$ pnpm i
+
+# Start development server
+$ pnpm run dev
+```
+
+Open http://127.0.0.1:5173/ to view it in the browser.
+
+## Lessons Learned:
+
+- Setting and getting with localStorage and JSON for simple CRUD operations
+- Better understanding of React with TypeScript
+- Better understanding of useEffect and useState React hooks
